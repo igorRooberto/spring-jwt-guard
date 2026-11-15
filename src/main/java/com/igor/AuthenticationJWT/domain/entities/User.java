@@ -1,6 +1,7 @@
 package com.igor.AuthenticationJWT.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,5 +49,11 @@ public class User {
     protected User() {
     }
 
-
+    @Builder
+    public User(String email, String password, Set<UserRoleEntity> roleEntitySet, Boolean active) {
+        this.email = email;
+        this.password = password;
+        this.roleEntitySet = roleEntitySet;
+        this.active = active;
+    }
 }
