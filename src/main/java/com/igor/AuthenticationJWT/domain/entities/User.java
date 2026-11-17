@@ -50,10 +50,13 @@ public class User {
     }
 
     @Builder
-    public User(String email, String password, Set<UserRoleEntity> roleEntitySet, Boolean active) {
+    public User(Long id, String email, String password, Instant createdAt, Instant updatedAt, Boolean active, Set<UserRoleEntity> roleEntitySet) {
+        this.id = id;
         this.email = email;
         this.password = password;
-        this.roleEntitySet = roleEntitySet;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.active = active;
+        this.roleEntitySet = roleEntitySet;
     }
 }
