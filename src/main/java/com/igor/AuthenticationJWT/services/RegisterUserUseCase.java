@@ -30,7 +30,7 @@ public class RegisterUserUseCase {
         String encryptedPassword = passwordEncoder.encode(dto.password());
 
         UserRoleEntity role = userRoleEntityRepository.findByName("USER")
-                .orElseThrow(() -> new IllegalStateException("Role USER não encontrada, verifique o Banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("Role não encontrada, ERRO INTERNO"));
 
         Set<UserRoleEntity> roleEntitySet = new HashSet<>();
         roleEntitySet.add(role);

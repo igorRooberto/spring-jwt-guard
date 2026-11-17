@@ -18,4 +18,9 @@ public class UserRoleEntity {
 
     protected UserRoleEntity() {
     }
+
+    public UserRoleEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
