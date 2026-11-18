@@ -34,6 +34,4 @@ public class LoginUserUseCase {
         String token = jwtService.generateToken(user);
         return new LoginResponseDto(token);
     }
-
-
 }
