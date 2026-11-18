@@ -34,7 +34,7 @@ public class RegisterUserUseCaseTest {
 
     @Test
     void execute_WhenValidInput_ShouldRegisterUserSuccessfully(){
-        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "12Igor345");
+        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "iGor5678");
 
         UserRoleEntity userRoleEntityTest = new UserRoleEntity(1L, "ROLE_USER");
 
@@ -49,7 +49,7 @@ public class RegisterUserUseCaseTest {
 
     @Test
     void execute_WhenEmailAlreadyExists_ShouldThrowConflictException(){
-        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "12Igor345");
+        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "iGor5678");
 
         when(userRepository.existsByEmail(inputDto.email())).thenReturn(true);
 
@@ -62,7 +62,7 @@ public class RegisterUserUseCaseTest {
 
     @Test
     void execute_WhenRoleIsNotFound_ShouldThrowIllegalStateException(){
-        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "12Igor345");
+        RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "iGor5678");
 
         when(userRepository.existsByEmail(inputDto.email())).thenReturn(false);
         when(passwordEncoder.encode(inputDto.password())).thenReturn("PASSWORD-ENCRYPTED");
