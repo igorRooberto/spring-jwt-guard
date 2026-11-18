@@ -3,8 +3,8 @@ services:
     image: postgres:15-alpine
     container_name: postgres_container
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: ${USER_POSTGRES}
+      POSTGRES_PASSWORD: ${PASSWORD_POSTGRES}
       POSTGRES_DB: jwt_guard
     ports:
       - "5433:5432"
@@ -15,8 +15,8 @@ services:
       image: dpage/pgadmin4:latest
       container_name: pgadmin_container
       environment:
-        PGADMIN_DEFAULT_EMAIL: admin@admin.com
-        PGADMIN_DEFAULT_PASSWORD: 123456
+        PGADMIN_DEFAULT_EMAIL: ${EMAIL_PG_ADMIN}
+        PGADMIN_DEFAULT_PASSWORD: ${PASSWORD_PG_ADMIN}
       ports:
         - "5050:80"
       volumes:

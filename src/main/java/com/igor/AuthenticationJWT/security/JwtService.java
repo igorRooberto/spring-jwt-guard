@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.igor.AuthenticationJWT.domain.entities.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -13,7 +14,8 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class JwtService {
 
-    public final String secret = "CHAVE_SECRETA_123";
+    @Value("${SECRET_KEY_TOKEN_JWT}")
+    public String secret;
 
     public String generateToken(User user){
       try{
