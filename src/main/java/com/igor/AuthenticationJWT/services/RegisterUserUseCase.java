@@ -21,7 +21,7 @@ public class RegisterUserUseCase {
     private final UserRoleEntityRepository userRoleEntityRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void execute(RegisterInputDto dto){
+    public Long execute(RegisterInputDto dto){
 
         if(userRepository.existsByEmail(dto.email())){
             throw new ConflictException("O Email já está sendo utilizado");
@@ -42,7 +42,8 @@ public class RegisterUserUseCase {
                 .roleEntitySet(roleEntitySet)
                 .build();
 
-        userRepository.save(user);
+        User userSaved = userRepository.save(user);
+        return userSaved.getId();
     }
 
 
