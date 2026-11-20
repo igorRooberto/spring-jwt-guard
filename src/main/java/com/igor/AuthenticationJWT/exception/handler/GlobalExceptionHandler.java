@@ -3,6 +3,7 @@ package com.igor.AuthenticationJWT.exception.handler;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.igor.AuthenticationJWT.exception.ConflictException;
+import com.igor.AuthenticationJWT.exception.NotFoundException;
 import com.igor.AuthenticationJWT.exception.message.ErrorMessage;
 import com.igor.AuthenticationJWT.exception.message.FieldErrorMessage;
 import com.igor.AuthenticationJWT.exception.message.ValidationErrorMessage;
@@ -70,6 +71,18 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(
+                404,
+                "NOT_FOUND",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 
 

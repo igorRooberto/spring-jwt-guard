@@ -1,4 +1,4 @@
-package com.igor.AuthenticationJWT.dto;
+package com.igor.AuthenticationJWT.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

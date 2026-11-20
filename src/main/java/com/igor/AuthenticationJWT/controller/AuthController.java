@@ -1,10 +1,10 @@
 package com.igor.AuthenticationJWT.controller;
 
-import com.igor.AuthenticationJWT.dto.LoginInputDto;
-import com.igor.AuthenticationJWT.dto.LoginResponseDto;
-import com.igor.AuthenticationJWT.dto.RegisterInputDto;
-import com.igor.AuthenticationJWT.services.LoginUserUseCase;
-import com.igor.AuthenticationJWT.services.RegisterUserUseCase;
+import com.igor.AuthenticationJWT.dto.auth.LoginInputDto;
+import com.igor.AuthenticationJWT.dto.auth.LoginResponseDto;
+import com.igor.AuthenticationJWT.dto.auth.RegisterInputDto;
+import com.igor.AuthenticationJWT.usecases.auth.LoginUserUseCase;
+import com.igor.AuthenticationJWT.usecases.auth.RegisterUserUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

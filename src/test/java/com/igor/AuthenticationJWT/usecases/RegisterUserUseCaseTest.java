@@ -1,11 +1,12 @@
-package com.igor.AuthenticationJWT.services;
+package com.igor.AuthenticationJWT.usecases;
 
 import com.igor.AuthenticationJWT.domain.entities.User;
 import com.igor.AuthenticationJWT.domain.entities.UserRoleEntity;
-import com.igor.AuthenticationJWT.dto.RegisterInputDto;
+import com.igor.AuthenticationJWT.dto.auth.RegisterInputDto;
 import com.igor.AuthenticationJWT.exception.ConflictException;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import com.igor.AuthenticationJWT.repositories.UserRoleEntityRepository;
+import com.igor.AuthenticationJWT.usecases.auth.RegisterUserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;

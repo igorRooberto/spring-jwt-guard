@@ -13,7 +13,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("SELECT u FROM User u JOIN FETCH u.rolesEntitySet WHERE u.email = :email")
+    @Query("SELECT u FROM User u JOIN FETCH u.roleEntitySet WHERE u.email = :email")
     Optional<User> findByEmailWithRoles(@Param("email") String email);
+
+    @Query("SELECT u FROM User u JOIN FETCH u.roleEntitySet WHERE u.id = :id")
+    Optional<User> findByIdWithRoles(@Param("id") Long id);
 
 }
