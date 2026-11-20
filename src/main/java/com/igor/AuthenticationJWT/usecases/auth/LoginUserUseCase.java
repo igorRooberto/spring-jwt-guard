@@ -1,8 +1,8 @@
-package com.igor.AuthenticationJWT.services;
+package com.igor.AuthenticationJWT.usecases.auth;
 
 import com.igor.AuthenticationJWT.domain.entities.User;
-import com.igor.AuthenticationJWT.dto.LoginInputDto;
-import com.igor.AuthenticationJWT.dto.LoginResponseDto;
+import com.igor.AuthenticationJWT.dto.auth.LoginInputDto;
+import com.igor.AuthenticationJWT.dto.auth.LoginResponseDto;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import com.igor.AuthenticationJWT.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;

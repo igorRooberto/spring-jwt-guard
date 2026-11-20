@@ -1,11 +1,12 @@
-package com.igor.AuthenticationJWT.services;
+package com.igor.AuthenticationJWT.usecases;
 
 import com.igor.AuthenticationJWT.domain.entities.User;
 import com.igor.AuthenticationJWT.domain.entities.UserRoleEntity;
-import com.igor.AuthenticationJWT.dto.LoginInputDto;
-import com.igor.AuthenticationJWT.dto.LoginResponseDto;
+import com.igor.AuthenticationJWT.dto.auth.LoginInputDto;
+import com.igor.AuthenticationJWT.dto.auth.LoginResponseDto;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import com.igor.AuthenticationJWT.security.JwtTokenService;
+import com.igor.AuthenticationJWT.usecases.auth.LoginUserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.BadCredentialsException;
