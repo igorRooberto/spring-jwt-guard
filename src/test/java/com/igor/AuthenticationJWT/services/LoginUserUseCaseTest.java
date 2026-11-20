@@ -5,7 +5,7 @@ import com.igor.AuthenticationJWT.domain.entities.UserRoleEntity;
 import com.igor.AuthenticationJWT.dto.LoginInputDto;
 import com.igor.AuthenticationJWT.dto.LoginResponseDto;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
-import com.igor.AuthenticationJWT.security.JwtService;
+import com.igor.AuthenticationJWT.security.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class LoginUserUseCaseTest {
 
     private UserRepository userRepository;
-    private JwtService jwtService;
+    private JwtTokenService jwtService;
     private PasswordEncoder passwordEncoder;
 
     private LoginUserUseCase loginUserUseCase;
@@ -29,7 +29,7 @@ public class LoginUserUseCaseTest {
     @BeforeEach
     void setUp(){
         userRepository = mock(UserRepository.class);
-        jwtService = mock(JwtService.class);
+        jwtService = mock(JwtTokenService.class);
         passwordEncoder = mock(PasswordEncoder.class);
 
         loginUserUseCase = new LoginUserUseCase(userRepository, jwtService, passwordEncoder);

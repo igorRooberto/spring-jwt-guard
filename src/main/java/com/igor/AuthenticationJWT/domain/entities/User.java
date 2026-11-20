@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,7 +43,7 @@ public class User {
     @ManyToMany()
     @JoinTable(name = "tb_user_role",
                joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id")
+               inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<UserRoleEntity> roleEntitySet = new HashSet<>();
 
@@ -59,4 +60,9 @@ public class User {
         this.active = active;
         this.roleEntitySet = roleEntitySet;
     }
+
+    public List<String> getRoles(){
+        return roleEntitySet.stream().map(UserRoleEntity::getName).toList();
+    }
+
 }

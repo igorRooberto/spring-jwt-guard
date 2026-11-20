@@ -1,5 +1,7 @@
 package com.igor.AuthenticationJWT.exception.handler;
 
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.igor.AuthenticationJWT.exception.ConflictException;
 import com.igor.AuthenticationJWT.exception.message.ErrorMessage;
 import com.igor.AuthenticationJWT.exception.message.FieldErrorMessage;
@@ -46,8 +48,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ErrorMessage> handleIllegalState(IllegalStateException ex, HttpServletRequest request){
+    @ExceptionHandler({IllegalStateException.class, JWTCreationException.class})
+    public ResponseEntity<ErrorMessage> handleInternalServerError(Exception ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
                 500,
                 "INTERNAL_SERVER_ERROR",
@@ -58,8 +60,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorMessage> handleBadCredentials(BadCredentialsException ex, HttpServletRequest request){
+    @ExceptionHandler({BadCredentialsException.class, JWTVerificationException.class})
+    public ResponseEntity<ErrorMessage> handleUnauthorizedExceptions(Exception ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
                 401,
                 "UNAUTHORIZED",
