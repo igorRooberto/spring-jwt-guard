@@ -2,6 +2,7 @@ package com.igor.AuthenticationJWT.exception.handler;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.igor.AuthenticationJWT.exception.BadRequestException;
 import com.igor.AuthenticationJWT.exception.ConflictException;
 import com.igor.AuthenticationJWT.exception.NotFoundException;
 import com.igor.AuthenticationJWT.exception.message.ErrorMessage;
@@ -85,5 +86,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException ex, HttpServletRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(
+                400,
+                "BAD_REQUEST",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
 
+        return ResponseEntity.badRequest().body(errorMessage);
+    }
 }
