@@ -65,4 +65,8 @@ public class User {
         return roleEntitySet.stream().map(UserRoleEntity::getName).toList();
     }
 
+    public void changePassword(String newPassword){
+        this.password = newPassword;
+    }
+
 }
