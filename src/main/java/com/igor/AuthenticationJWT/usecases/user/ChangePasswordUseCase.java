@@ -29,10 +29,11 @@ public class ChangePasswordUseCase {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Usuário Não Encontrado"));
 
-        if(passwordEncoder.matches(dto.currentPassword(), user.getPassword())){
+        if(!passwordEncoder.matches(dto.currentPassword(), user.getPassword())){
             throw new BadRequestException("Senha atual inválida");
         }
 
-        user.changePassword(dto.newPassword());
+        String encryptedPassword = passwordEncoder.encode(dto.newPassword());
+        user.changePassword(encryptedPassword);
     }
 }
