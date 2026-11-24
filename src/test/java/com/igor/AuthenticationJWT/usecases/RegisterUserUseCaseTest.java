@@ -37,15 +37,21 @@ public class RegisterUserUseCaseTest {
     void execute_WhenValidInput_ShouldRegisterUserSuccessfully(){
         RegisterInputDto inputDto = new RegisterInputDto("igor@gmail.com", "iGor5678");
 
+        User userSavedTest = User.builder()
+                .id(1L)
+                .build();
+
         UserRoleEntity userRoleEntityTest = new UserRoleEntity(1L, "ROLE_USER");
 
         when(userRepository.existsByEmail(inputDto.email())).thenReturn(false);
+        when(userRepository.save(any(User.class))).thenReturn(userSavedTest);
         when(passwordEncoder.encode(inputDto.password())).thenReturn("PASSWORD-ENCRYPTED");
         when(userRoleEntityRepository.findByName("USER")).thenReturn(Optional.of(userRoleEntityTest));
 
-        registerUserUseCase.execute(inputDto);
+        Long userId = registerUserUseCase.execute(inputDto);
 
         verify(userRepository, times(1)).save(any(User.class));
+        assertEquals(userSavedTest.getId(), userId);
     }
 
     @Test
