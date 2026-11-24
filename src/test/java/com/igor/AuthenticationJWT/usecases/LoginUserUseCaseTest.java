@@ -14,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -52,19 +51,22 @@ public class LoginUserUseCaseTest {
                 .roleEntitySet(userRoleEntitySet)
                 .build();
 
-        when(userRepository.findByEmail(inputDto.email())).thenReturn(Optional.of(user));
+        when(userRepository.findByEmailWithRoles(inputDto.email())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(inputDto.password(), user.getPassword())).thenReturn(true);
         when(jwtService.generateToken(user)).thenReturn("TOKEN_JWT");
 
         LoginResponseDto responseDto = loginUserUseCase.execute(inputDto);
+
+        assertNotNull(responseDto);
+        assertEquals("TOKEN_JWT", responseDto.token());
     }
 
     @Test
-    void execute_WhenInValidEmail_ShouldThrowException(){
+    void execute_WhenEmailNotExists_ShouldThrowException(){
 
         LoginInputDto inputDto = new LoginInputDto("igor@gmail.com", "iGor5678");
 
-        when(userRepository.findByEmail(inputDto.email())).thenReturn(Optional.empty());
+        when(userRepository.findByEmailWithRoles(inputDto.email())).thenReturn(Optional.empty());
 
         BadCredentialsException exception = assertThrows(BadCredentialsException.class, () -> loginUserUseCase.execute(inputDto));
 
@@ -87,7 +89,7 @@ public class LoginUserUseCaseTest {
                 .roleEntitySet(userRoleEntitySet)
                 .build();
 
-        when(userRepository.findByEmail(inputDto.email())).thenReturn(Optional.of(user));
+        when(userRepository.findByEmailWithRoles(inputDto.email())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(inputDto.password(), user.getPassword())).thenReturn(false);
 
         BadCredentialsException exception = assertThrows(BadCredentialsException.class, () -> loginUserUseCase.execute(inputDto));
@@ -111,7 +113,7 @@ public class LoginUserUseCaseTest {
                 .roleEntitySet(userRoleEntitySet)
                 .build();
 
-        when(userRepository.findByEmail(inputDto.email())).thenReturn(Optional.of(user));
+        when(userRepository.findByEmailWithRoles(inputDto.email())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(inputDto.password(), user.getPassword())).thenReturn(true);
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> loginUserUseCase.execute(inputDto));
