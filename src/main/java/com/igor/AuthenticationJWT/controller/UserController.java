@@ -3,28 +3,25 @@ package com.igor.AuthenticationJWT.controller;
 import com.igor.AuthenticationJWT.dto.user.ChangePasswordRequestDto;
 import com.igor.AuthenticationJWT.dto.user.UserResponseDTO;
 import com.igor.AuthenticationJWT.usecases.user.ChangePasswordUseCase;
-import com.igor.AuthenticationJWT.usecases.user.GetUserUseCase;
+import com.igor.AuthenticationJWT.usecases.user.FindMyProfileUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final GetUserUseCase getUserUseCase;
+    private final FindMyProfileUseCase findMyProfileUseCase;
     private final ChangePasswordUseCase changePasswordUseCase;
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> getUser(@AuthenticationPrincipal String userId){
-        return ResponseEntity.ok(getUserUseCase.execute(Long.valueOf(userId)));
+        return ResponseEntity.ok(findMyProfileUseCase.execute(Long.valueOf(userId)));
     }
 
     @PatchMapping("/me/password")
