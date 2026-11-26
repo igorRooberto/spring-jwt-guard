@@ -18,3 +18,19 @@ O projeto tem como objetivo implementar um fluxo de autenticação stateless, co
 - **Bean Validation** — validação de dados de entrada.
 - **Docker e Docker Compose** — containerização e gerenciamento do ambiente de desenvolvimento.
 - **Maven** — gerenciamento de dependências e build do projeto.
+
+---
+
+**🚧 Status do projeto**
+
+**Em desenvolvimento!**
+
+O Spring JWT Guard está em constante evolução. Novas funcionalidades, melhorias e testes estão sendo implementados gradualmente.
+
+**👨‍💻 Autor**
+
+Desenvolvido por **Igor Roberto**.
+
+🔗 GitHub: [@igorRooberto](https://github.com/igorRooberto)
+
+⭐ Se gostou do projeto, considere deixar uma estrela!
