@@ -69,4 +69,8 @@ public class User {
         this.password = newPassword;
     }
 
+    public void deactivateUser(){
+        this.active = false;
+    }
+
 }

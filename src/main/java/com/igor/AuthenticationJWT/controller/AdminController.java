@@ -2,6 +2,7 @@ package com.igor.AuthenticationJWT.controller;
 
 import com.igor.AuthenticationJWT.dto.admin.AdminResponseDTO;
 import com.igor.AuthenticationJWT.dto.admin.AdminUserDetailsDTO;
+import com.igor.AuthenticationJWT.usecases.admin.DeactivateUserUseCase;
 import com.igor.AuthenticationJWT.usecases.admin.FindAllUsersUseCase;
 import com.igor.AuthenticationJWT.usecases.admin.FindUserByIdUseCase;
 import jakarta.validation.constraints.Max;
@@ -20,6 +21,7 @@ public class AdminController {
 
     private final FindAllUsersUseCase findAllUsersUseCase;
     private final FindUserByIdUseCase findUserByIdUseCase;
+    private final DeactivateUserUseCase deactivateUserUseCase;
 
     @GetMapping("/users")
     public ResponseEntity<Page<AdminResponseDTO>> findAllUsers(
@@ -35,5 +37,11 @@ public class AdminController {
     @GetMapping("/users/{id}")
     public ResponseEntity<AdminUserDetailsDTO> findUserById(@PathVariable Long id){
         return ResponseEntity.ok(findUserByIdUseCase.execute(id));
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Void> deactivateUser(@PathVariable Long id){
+        deactivateUserUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }
