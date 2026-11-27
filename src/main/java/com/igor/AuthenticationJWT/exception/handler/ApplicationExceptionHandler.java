@@ -2,49 +2,33 @@ package com.igor.AuthenticationJWT.exception.handler;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.igor.AuthenticationJWT.exception.BadRequestException;
-import com.igor.AuthenticationJWT.exception.ConflictException;
-import com.igor.AuthenticationJWT.exception.NotFoundException;
-import com.igor.AuthenticationJWT.exception.message.ErrorMessage;
-import com.igor.AuthenticationJWT.exception.message.FieldErrorMessage;
-import com.igor.AuthenticationJWT.exception.message.ValidationErrorMessage;
+import com.igor.AuthenticationJWT.exception.custom.BadRequestException;
+import com.igor.AuthenticationJWT.exception.custom.ConflictException;
+import com.igor.AuthenticationJWT.exception.custom.NotFoundException;
+import com.igor.AuthenticationJWT.exception.response.ErrorMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.Instant;
 import java.util.List;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorMessage> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request){
-
-        List<FieldErrorMessage> details = ex.getBindingResult().getFieldErrors()
-                .stream().map(f -> new FieldErrorMessage(f.getField(), f.getDefaultMessage())).toList();
-
-        ValidationErrorMessage errorMessage = new ValidationErrorMessage(
-                422,
-                "BAD_REQUEST",
-                "Campos Inválidos",
-                request.getRequestURI(),
-                details
-        );
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-    }
+public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity<ErrorMessage> handleConflictException(ConflictException ex, HttpServletRequest request){
-
         ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
                 409,
                 "CONFLICT",
                 ex.getMessage(),
-                request.getRequestURI()
+                request.getRequestURI(),
+                List.of()
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
@@ -53,10 +37,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({IllegalStateException.class, JWTCreationException.class})
     public ResponseEntity<ErrorMessage> handleInternalServerError(Exception ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
                 500,
                 "INTERNAL_SERVER_ERROR",
-                ex.getMessage(),
-                request.getRequestURI()
+                "OCORREU UM ERRO INTERNO",
+                request.getRequestURI(),
+                List.of()
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -65,10 +51,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BadCredentialsException.class, JWTVerificationException.class})
     public ResponseEntity<ErrorMessage> handleUnauthorizedExceptions(Exception ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
                 401,
                 "UNAUTHORIZED",
                 ex.getMessage(),
-                request.getRequestURI()
+                request.getRequestURI(),
+                List.of()
         );
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
@@ -77,10 +65,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
                 404,
                 "NOT_FOUND",
                 ex.getMessage(),
-                request.getRequestURI()
+                request.getRequestURI(),
+                List.of()
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
@@ -89,12 +79,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException ex, HttpServletRequest request) {
         ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
                 400,
                 "BAD_REQUEST",
                 ex.getMessage(),
-                request.getRequestURI()
+                request.getRequestURI(),
+                List.of()
         );
-
         return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorMessage> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(
+                Instant.now(),
+                403,
+                "FORBIDDEN",
+                ex.getMessage(),
+                request.getRequestURI(),
+                List.of()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
     }
 }

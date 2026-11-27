@@ -1,7 +1,7 @@
 package com.igor.AuthenticationJWT.usecases.admin;
 
 import com.igor.AuthenticationJWT.domain.entities.User;
-import com.igor.AuthenticationJWT.exception.NotFoundException;
+import com.igor.AuthenticationJWT.exception.custom.NotFoundException;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

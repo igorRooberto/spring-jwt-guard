@@ -2,13 +2,12 @@ package com.igor.AuthenticationJWT.usecases.user;
 
 import com.igor.AuthenticationJWT.domain.entities.User;
 import com.igor.AuthenticationJWT.dto.user.ChangePasswordRequestDto;
-import com.igor.AuthenticationJWT.exception.BadRequestException;
-import com.igor.AuthenticationJWT.exception.ConflictException;
-import com.igor.AuthenticationJWT.exception.NotFoundException;
+import com.igor.AuthenticationJWT.exception.custom.BadRequestException;
+import com.igor.AuthenticationJWT.exception.custom.ConflictException;
+import com.igor.AuthenticationJWT.exception.custom.NotFoundException;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

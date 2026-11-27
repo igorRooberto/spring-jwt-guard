@@ -1,4 +1,4 @@
-package com.igor.AuthenticationJWT.exception.message;
+package com.igor.AuthenticationJWT.exception.response;
 
 public record FieldErrorMessage(
 

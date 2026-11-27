@@ -6,6 +6,7 @@ import com.igor.AuthenticationJWT.dto.auth.LoginResponseDto;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import com.igor.AuthenticationJWT.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class LoginUserUseCase {
         }
 
         if(!user.getActive()){
-            throw new IllegalStateException("Sua Conta encontra-se desativada");
+            throw new AccessDeniedException("Sua Conta encontra-se desativada") ;
         }
 
         String token = jwtService.generateToken(user);
