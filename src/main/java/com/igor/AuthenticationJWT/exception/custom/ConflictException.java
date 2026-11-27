@@ -1,4 +1,4 @@
-package com.igor.AuthenticationJWT.exception;
+package com.igor.AuthenticationJWT.exception.custom;
 
 public class ConflictException extends RuntimeException {
     public ConflictException(String message) {

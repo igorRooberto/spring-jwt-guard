@@ -3,7 +3,7 @@ package com.igor.AuthenticationJWT.usecases.auth;
 import com.igor.AuthenticationJWT.domain.entities.User;
 import com.igor.AuthenticationJWT.domain.entities.UserRoleEntity;
 import com.igor.AuthenticationJWT.dto.auth.RegisterInputDto;
-import com.igor.AuthenticationJWT.exception.ConflictException;
+import com.igor.AuthenticationJWT.exception.custom.ConflictException;
 import com.igor.AuthenticationJWT.repositories.UserRepository;
 import com.igor.AuthenticationJWT.repositories.UserRoleEntityRepository;
 import lombok.RequiredArgsConstructor;

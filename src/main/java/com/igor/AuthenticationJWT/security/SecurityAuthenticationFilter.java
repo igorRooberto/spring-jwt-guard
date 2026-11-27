@@ -28,14 +28,17 @@ public class SecurityAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            Optional<String> token = recoverToken(request);
 
+            Optional<String> token = recoverToken(request);
             token.ifPresent(this::authentication);
 
-            filterChain.doFilter(request, response);
-        }catch (JWTVerificationException ex){
-            handlerExceptionResolver.resolveException(request, response,null, ex);
         }
+        catch (JWTVerificationException ex){
+            handlerExceptionResolver.resolveException(request, response,null, ex);
+            return;
+        }
+
+        filterChain.doFilter(request, response);
     }
 
     private Optional<String> recoverToken(HttpServletRequest request){

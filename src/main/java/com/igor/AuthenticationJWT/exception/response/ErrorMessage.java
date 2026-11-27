@@ -1,8 +1,10 @@
-package com.igor.AuthenticationJWT.exception.message;
+package com.igor.AuthenticationJWT.exception.response;
 
+import java.time.Instant;
 import java.util.List;
 
-public record ValidationErrorMessage(
+public record ErrorMessage(
+        Instant timestamp,
         int status,
         String error,
         String message,
