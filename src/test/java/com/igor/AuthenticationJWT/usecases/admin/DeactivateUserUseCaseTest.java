@@ -22,7 +22,7 @@ public class DeactivateUserUseCaseTest {
     }
 
     @Test
-    void  shouldDeactivateUserSuccessfully(){
+    void shouldDeactivateUserSuccessfully(){
 
         User user = User.builder()
                 .id(1L)

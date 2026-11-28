@@ -16,7 +16,7 @@ public class FindUserByIdUseCase {
     public AdminUserDetailsDTO execute(Long id){
 
         User user = userRepository.findByIdWithRoles(id)
-                .orElseThrow(() -> new NotFoundException("Usuário Não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         return new AdminUserDetailsDTO(user.getId(), user.getEmail(), user.getActive(), user.getRoles(), user.getCreatedAt());
     }
