@@ -40,7 +40,7 @@ public class ApplicationExceptionHandler {
                 Instant.now(),
                 500,
                 "INTERNAL_SERVER_ERROR",
-                "OCORREU UM ERRO INTERNO",
+                "OCORREU UM ERRO INTERNO NA APLICAÇÃO",
                 request.getRequestURI(),
                 List.of()
         );
@@ -48,19 +48,6 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
 
-    @ExceptionHandler({BadCredentialsException.class, JWTVerificationException.class})
-    public ResponseEntity<ErrorMessage> handleUnauthorizedExceptions(Exception ex, HttpServletRequest request) {
-        ErrorMessage errorMessage = new ErrorMessage(
-                Instant.now(),
-                401,
-                "UNAUTHORIZED",
-                ex.getMessage(),
-                request.getRequestURI(),
-                List.of()
-        );
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-    }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
@@ -89,16 +76,4 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.badRequest().body(errorMessage);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorMessage> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
-        ErrorMessage errorMessage = new ErrorMessage(
-                Instant.now(),
-                403,
-                "FORBIDDEN",
-                ex.getMessage(),
-                request.getRequestURI(),
-                List.of()
-        );
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
-    }
 }
